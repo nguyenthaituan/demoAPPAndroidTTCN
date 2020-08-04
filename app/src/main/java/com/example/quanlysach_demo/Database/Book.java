@@ -1,0 +1,67 @@
+package com.example.quanlysach_demo.Database;
+
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import java.util.ArrayList;
+
+@Entity(tableName = "book_table", indices = {@Index(value = {"bookname"}, unique = true)})
+public class Book {
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name="bookid")
+    private int mBookId;
+
+    @NonNull
+    @ColumnInfo(name="bookname")
+    private String mBookName;
+
+    @NonNull
+    @ColumnInfo(name="bookpic")
+    private String mBookPic;
+
+    @ColumnInfo(name="wishuser")
+    @TypeConverters(ListTypeConverter.class)
+    private ArrayList<Integer> mWishUser;
+
+    @ColumnInfo(name="owneduser")
+    @TypeConverters(ListTypeConverter.class)
+    private ArrayList<Integer> mOwnedUser;
+
+    public Book(String bookName, String bookPic) {
+        this.mBookName = bookName;
+        this.mBookPic = bookPic;
+        this.mWishUser = new ArrayList<Integer>();
+        this.mOwnedUser = new ArrayList<Integer>();
+    }
+
+    //getters
+    public int getBookId() {return this.mBookId;}
+    public String getBookName() {return this.mBookName;}
+    public String getBookPic() {return this.mBookPic;}
+    public ArrayList<Integer> getWishUser() {return this.mWishUser; }
+    public ArrayList<Integer> getOwnedUser() {return this.mOwnedUser; }
+
+    //setters
+    public void setBookId(int i) {
+        this.mBookId = i;
+    }
+    public void setWishUser (ArrayList<Integer> a) {this.mWishUser = a;}
+    public void setOwnedUser (ArrayList<Integer> a) {this.mOwnedUser = a;}
+    public void addWishUser (Integer i) {
+        this.mWishUser.add(i);
+    }
+    public void removeWishUser (Integer i) {
+        this.mWishUser.remove(i);
+    }
+    public void addOwnedUser (Integer i) {
+        this.mOwnedUser.add(i);
+    }
+    public void removeOwnedUser (Integer i) {
+        this.mOwnedUser.remove(i);
+    }
+
+}
